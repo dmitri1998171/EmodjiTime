@@ -4,7 +4,7 @@ TODO
 + 1) get a time
 + 2) parse a time
 + 3) collect emodji
-4) show the emodji
++ 4) show the emodji
 
 '''
 
@@ -48,6 +48,11 @@ time_str = time.split(":")
 hours = int(time_str[0])
 minutes = int(time_str[1])
 
+# Convert 24 to 12
+if(hours > 12):
+    hours -= 12
+
+# Parsing
 selector = 0
 
 if(minutes > 15 and minutes < 45):
@@ -68,7 +73,10 @@ elif(minutes < 15):
     minutes = '00'
 
 hours = str(hours)
+
+# Print time
 selector = f"{hours}:{minutes}"
 print(selector)
 
-# print(emodjies[selector])
+# Print emodji
+print(emodjies[selector])
