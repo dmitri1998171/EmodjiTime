@@ -3,7 +3,7 @@ TODO
 
 + 1) get a time
 + 2) parse a time
-3) collect emodji
++ 3) collect emodji
 4) show the emodji
 
 '''
@@ -37,10 +37,38 @@ emodjies = {
     "11:30" : "\U0001F566"
 }
 
+# Getting a time
 now = str(datetime.datetime.now().time())       # get a time in str
 now = now.split('.')                            # delete millis
 time = now[0]
-print(time)
-
 time = time[0:5]                                # delete seconds
-print(time)
+
+# Parsing
+time_str = time.split(":")
+hours = int(time_str[0])
+minutes = int(time_str[1])
+
+selector = 0
+
+if(minutes > 15 and minutes < 45):
+    minutes = '30'
+    
+elif(minutes > 45):
+    if(hours == 12):
+        hours = 0
+    else:
+        hours += 1
+
+    minutes = '00'
+
+elif(minutes > 15 and minutes < 45):
+    minutes = '30'
+
+elif(minutes < 15):
+    minutes = '00'
+
+hours = str(hours)
+selector = f"{hours}:{minutes}"
+print(selector)
+
+# print(emodjies[selector])
