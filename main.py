@@ -8,7 +8,7 @@ TODO
 
 '''
 
-import datetime
+import time
 
 emodjies = {
     "12:00" : "\U0001F55B",
@@ -38,39 +38,30 @@ emodjies = {
 }
 
 # Getting a time
-now = str(datetime.datetime.now().time())       # get a time in str
-now = now.split('.')                            # delete millis
-time = now[0]
-time = time[0:5]                                # delete seconds
-
-# Parsing
-time_str = time.split(":")
-hours = int(time_str[0])
-minutes = int(time_str[1])
+hours = time.localtime().tm_hour
+minutes = time.localtime().tm_min
 
 # Convert 24 to 12
 if(hours > 12):
     hours -= 12
 
 # Parsing
-selector = 0
+if(minutes < 15):                               # 00 - 15
+    minutes = '00'
 
-if(minutes > 15 and minutes < 45):
+elif(minutes > 15 and minutes < 30):            # 15 - 30
     minutes = '30'
     
-elif(minutes > 45):
+elif(minutes > 30 and minutes < 45):            # 30 - 45
+    minutes = '30'
+
+elif(minutes > 45):                             # 45 - 00
+    minutes = '00'
+
     if(hours == 12):
         hours = 0
     else:
         hours += 1
-
-    minutes = '00'
-
-elif(minutes > 15 and minutes < 45):
-    minutes = '30'
-
-elif(minutes < 15):
-    minutes = '00'
 
 hours = str(hours)
 
